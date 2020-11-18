@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
     color: theme.colors.textPrimary,
     fontSize: theme.fontSizes.body,
     fontFamily: theme.fonts.main,
-    fontWeight: theme.fontWeights.normal
+    fontWeight: theme.fontWeights.normal,
+    margin: 4
   },
   colorTextSecondary: {
     color: theme.colors.textSecondary

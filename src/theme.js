@@ -2,11 +2,13 @@ const theme = {
   colors: {
     textPrimary: '#24292e',
     textSecondary: '#586069',
-    primary: '#0366d6',
+    primary: '#0399d6',
     appBarTab: '#ffffff'
   },
   backgroundColors: {
-    appBar: '#24292e'
+    appMain: '#e1e4e8',
+    appBar: '#24292e',
+    repoItem: '#ffffff'
   },
   fontSizes: {
     body: 14,
