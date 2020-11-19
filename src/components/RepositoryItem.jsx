@@ -54,8 +54,7 @@ const style = StyleSheet.create({
 });
 
 const formatStatNumber = (statNumber) => {
-  if (statNumber < 1000) return statNumber;
-  return Number(statNumber/1000).toFixed(1).concat('k');
+  return statNumber < 1000 ? statNumber : Number(statNumber/1000).toFixed(1).concat('k');
 };
 
 const RepositoryItem = ({ item }) => {
