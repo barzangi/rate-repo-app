@@ -7,7 +7,7 @@ import Text from './Text';
 const style = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: theme.backgroundColors.repoItem,
+    backgroundColor: theme.backgroundColors.mainContainer,
     padding: 15
   },
   details: {
@@ -35,7 +35,7 @@ const style = StyleSheet.create({
   languageTagContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 4
+    marginTop: 8
   },
   languageTag: {
     flex: 0,
