@@ -3,12 +3,11 @@ const theme = {
     textPrimary: '#24292e',
     textSecondary: '#586069',
     primary: '#0399d6',
-    appBarTab: '#ffffff'
   },
   backgroundColors: {
     appMain: '#e1e4e8',
     appBar: '#24292e',
-    repoItem: '#ffffff'
+    mainContainer: '#ffffff'
   },
   fontSizes: {
     body: 14,
