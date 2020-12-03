@@ -1,34 +1,69 @@
-import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
-import { Link } from 'react-router-native';
+import React, { useContext } from 'react';
+import { View, ScrollView, TouchableHighlight, StyleSheet} from 'react-native';
+import { Link, useHistory } from 'react-router-native';
+import { useApolloClient } from '@apollo/client';
 import Constants from 'expo-constants';
 
 import theme from '../theme';
+import Text from './Text';
 
 import AppBarTab from './AppBarTab';
 
+import useAuthorizedUser from '../hooks/useAuthorizedUser';
+
+import AuthStorageContext from '../contexts/AuthStorageContext';
+
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight + 10,
-    backgroundColor: theme.backgroundColors.appBar,
-    paddingBottom: 10
+    paddingTop: Constants.statusBarHeight + 4,
+    backgroundColor: theme.backgroundColors.appBar
   },
   tabsContainer: {
     display: 'flex',
     flexDirection: 'row'
+  },
+  signOutTab: {
+    padding: 10,
+    color: 'white'
   }
 });
 
 const AppBar = () => {
+  const { authorizedUser } = useAuthorizedUser();
+  const history = useHistory();
+  const apolloClient = useApolloClient();
+  const authStorage = useContext(AuthStorageContext);
+
+  const handleSignOut = async () => {
+    await authStorage.clearAccessToken();
+    apolloClient.resetStore();
+    history.push('/');
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal style={styles.tabsContainer}>
         <Link to='/'>
           <AppBarTab>Repositories</AppBarTab>
         </Link>
-        <Link to='/sign-in'>
-          <AppBarTab>Sign in</AppBarTab>
-        </Link>
+        {authorizedUser
+          ? <>
+              <TouchableHighlight onPress={handleSignOut}>
+                <Text
+                  style={styles.signOutTab}
+                  fontWeight='bold'
+                  fontSize='subheading'
+                >
+                  Sign out
+                </Text>
+              </TouchableHighlight>
+            </>
+          : <>
+              <Link to='/sign-in'>
+                <AppBarTab>Sign in</AppBarTab>
+              </Link>
+            </>
+        }        
       </ScrollView>
     </View>
   );
