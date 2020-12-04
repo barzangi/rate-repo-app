@@ -53,7 +53,7 @@ const style = StyleSheet.create({
   },
 });
 
-const formatStatNumber = (statNumber) => {
+export const formatStatNumber = (statNumber) => {
   return statNumber < 1000 ? statNumber : Number(statNumber/1000).toFixed(1).concat('k');
 };
 
@@ -69,6 +69,7 @@ const RepositoryItem = ({ item }) => {
         />
         <View style={style.info}>
           <Text
+            testID='repoFullName'
             fontSize='subheading'
             fontWeight='bold'
             color='textPrimary'
@@ -76,12 +77,14 @@ const RepositoryItem = ({ item }) => {
             {item.fullName}
           </Text>
           <Text
+            testID='repoDescription'
             color='textSecondary'
           >
             {item.description}
           </Text>
           <View style={style.languageTagContainer}>
             <Text
+              testID='repoLanguage'
               style={style.languageTag}
             >
               {item.language}
@@ -92,6 +95,7 @@ const RepositoryItem = ({ item }) => {
       <View style={style.stats}>
         <View style={style.statsElement}>
           <Text
+            testID='repoStargazersCount'
             fontSize='subheading'
             fontWeight='bold'
             color='textPrimary'
@@ -102,6 +106,7 @@ const RepositoryItem = ({ item }) => {
         </View>
         <View style={style.statsElement}>
           <Text
+            testID='repoForksCount'
             fontSize='subheading'
             fontWeight='bold'
             color='textPrimary'
@@ -112,6 +117,7 @@ const RepositoryItem = ({ item }) => {
         </View>
         <View style={style.statsElement}>
           <Text
+            testID='repoReviewCount'
             fontSize='subheading'
             fontWeight='bold'
             color='textPrimary'
@@ -122,6 +128,7 @@ const RepositoryItem = ({ item }) => {
         </View>
         <View style={style.statsElement}>
           <Text
+            testID='repoRatingAverage'
             fontSize='subheading'
             fontWeight='bold'
             color='textPrimary'
