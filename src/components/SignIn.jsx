@@ -1,13 +1,13 @@
 import React from 'react';
 import * as yup from 'yup';
-import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-native';
 
 import theme from '../theme';
 
 import FormikTextInput from './FormikTextInput';
-import Text from './Text';
+import Button from './Button';
 
 import useSignIn from '../hooks/useSignIn';
 
@@ -30,15 +30,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: theme.colors.textSecondary,
     fontSize: theme.fontSizes.subheading
-  },
-  button: {
-    borderColor: theme.colors.primary,
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: theme.colors.primary,
-    color: '#ffffff',
-    padding: 14,
-    textAlign: 'center'
   }
 });
 
@@ -58,15 +49,7 @@ const SignInForm = ({ onSubmit }) => {
         style={styles.textInput}
         testID='passwordField'
       />
-      <TouchableWithoutFeedback onPress={onSubmit} testID='submitButton'>
-        <Text
-          fontSize='subHeading'
-          fontWeight='bold'
-          style={styles.button}
-        >
-          Sign in
-        </Text>
-      </TouchableWithoutFeedback>
+      <Button onPress={onSubmit} testID='submitButton'>Sign in</Button>
     </View>
   );
 };
