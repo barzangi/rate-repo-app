@@ -6,6 +6,7 @@ import theme from '../theme';
 
 import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
+import SingleRepository from './SingleRepository';
 import SignIn from './SignIn';
 
 const styles = StyleSheet.create({
@@ -23,6 +24,9 @@ const Main = () => {
       <Switch>
         <Route path='/sign-in'>
           <SignIn />
+        </Route>
+        <Route path='/repository/:id'>
+          <SingleRepository />
         </Route>
         <Route path='/' exact>
           <RepositoryList />
