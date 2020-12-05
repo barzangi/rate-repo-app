@@ -1,5 +1,6 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { useHistory } from 'react-router-native';
 
 import RepositoryItem from './RepositoryItem';
 
@@ -14,6 +15,12 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = ({ repositories }) => {
+  const history = useHistory();
+
+  const viewSingleRepo = id => {
+    history.push(`/repository/${id}`);
+  };
+
   // get the nodes from the edges array
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -24,10 +31,13 @@ export const RepositoryListContainer = ({ repositories }) => {
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => (
-        <RepositoryItem
-          key={item.id}
-          item={item}
-        />
+        <TouchableOpacity activeOpacity={0.5} onPress={() => viewSingleRepo(item.id)}>
+          <RepositoryItem
+            key={item.id}
+            item={item}
+            singleRepo={false}
+          />
+        </TouchableOpacity>
       )}
     />
   );
