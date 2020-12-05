@@ -49,14 +49,16 @@ const SignInForm = ({ onSubmit }) => {
         name='username'
         placeholder='Username'
         style={styles.textInput}
+        testID='usernameField'
       />
       <FormikTextInput
         name='password'
         placeholder='Password'
         secureTextEntry={true}
         style={styles.textInput}
+        testID='passwordField'
       />
-      <TouchableWithoutFeedback onPress={onSubmit}>
+      <TouchableWithoutFeedback onPress={onSubmit} testID='submitButton'>
         <Text
           fontSize='subHeading'
           fontWeight='bold'
@@ -80,6 +82,18 @@ const validationSchema = yup.object().shape({
     .required('Password is required')
 });
 
+export const SignInContainer = ({ onSubmit }) => {
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+    </Formik>
+  );
+};
+
 const SignIn = () => {
   const [signIn] = useSignIn();
   const history = useHistory();
@@ -97,13 +111,7 @@ const SignIn = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-    </Formik>
+    <SignInContainer onSubmit={onSubmit} />
   );
 };
 
