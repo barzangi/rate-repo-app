@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import * as Linking from 'expo-linking';
 
 import theme from '../theme';
 import Text from './Text';
+import Button from './Button';
 
 const style = StyleSheet.create({
   container: {
@@ -51,13 +53,20 @@ const style = StyleSheet.create({
     flexShrink: 1,
     alignItems: 'center'
   },
+  urlButton: {
+    marginTop: 10
+  }
 });
 
 export const formatStatNumber = (statNumber) => {
   return statNumber < 1000 ? statNumber : Number(statNumber/1000).toFixed(1).concat('k');
 };
 
-const RepositoryItem = ({ item }) => {
+const openUrlInBrowser = url => {
+  Linking.openURL(url);
+};
+
+const RepositoryItem = ({ item, singleRepo }) => {
   return (
     <View style={style.container}>
       <View style={style.details}>
@@ -138,6 +147,14 @@ const RepositoryItem = ({ item }) => {
           <Text color='textSecondary'>Rating</Text>
         </View>
       </View>
+      {singleRepo
+        ? <Button
+            style={style.urlButton}
+            onPress={() => openUrlInBrowser(item.url)}
+          >
+            Open in GitHub
+          </Button>
+        : null}
     </View>
   );
 };
