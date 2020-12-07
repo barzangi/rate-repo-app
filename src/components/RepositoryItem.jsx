@@ -6,7 +6,7 @@ import theme from '../theme';
 import Text from './Text';
 import Button from './Button';
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     display: 'flex',
     backgroundColor: theme.backgroundColors.mainContainer,
@@ -55,6 +55,9 @@ const style = StyleSheet.create({
   },
   urlButton: {
     marginTop: 10
+  },
+  separator: {
+    height: 10
   }
 });
 
@@ -66,96 +69,101 @@ const openUrlInBrowser = url => {
   Linking.openURL(url);
 };
 
+const ItemSeparator = () => <View style={styles.separator} />;
+
 const RepositoryItem = ({ item, singleRepo }) => {
   return (
-    <View style={style.container}>
-      <View style={style.details}>
-        <Image
-          style={style.avatar}
-          source={{
-            uri: item.ownerAvatarUrl
-          }}
-        />
-        <View style={style.info}>
-          <Text
-            testID='repoFullName'
-            fontSize='subheading'
-            fontWeight='bold'
-            color='textPrimary'
-          >
-            {item.fullName}
-          </Text>
-          <Text
-            testID='repoDescription'
-            color='textSecondary'
-          >
-            {item.description}
-          </Text>
-          <View style={style.languageTagContainer}>
+    <>
+      <View style={styles.container}>
+        <View style={styles.details}>
+          <Image
+            style={styles.avatar}
+            source={{
+              uri: item.ownerAvatarUrl
+            }}
+          />
+          <View style={styles.info}>
             <Text
-              testID='repoLanguage'
-              style={style.languageTag}
+              testID='repoFullName'
+              fontSize='subheading'
+              fontWeight='bold'
+              color='textPrimary'
             >
-              {item.language}
+              {item.fullName}
             </Text>
+            <Text
+              testID='repoDescription'
+              color='textSecondary'
+            >
+              {item.description}
+            </Text>
+            <View style={styles.languageTagContainer}>
+              <Text
+                testID='repoLanguage'
+                style={styles.languageTag}
+              >
+                {item.language}
+              </Text>
+            </View>
           </View>
         </View>
+        <View style={styles.stats}>
+          <View style={styles.statsElement}>
+            <Text
+              testID='repoStargazersCount'
+              fontSize='subheading'
+              fontWeight='bold'
+              color='textPrimary'
+            >
+              {formatStatNumber(item.stargazersCount)}
+            </Text>
+            <Text color='textSecondary'>Stars</Text>
+          </View>
+          <View style={styles.statsElement}>
+            <Text
+              testID='repoForksCount'
+              fontSize='subheading'
+              fontWeight='bold'
+              color='textPrimary'
+            >
+              {formatStatNumber(item.forksCount)}
+            </Text>
+            <Text color='textSecondary'>Forks</Text>
+          </View>
+          <View style={styles.statsElement}>
+            <Text
+              testID='repoReviewCount'
+              fontSize='subheading'
+              fontWeight='bold'
+              color='textPrimary'
+            >
+              {formatStatNumber(item.reviewCount)}
+            </Text>
+            <Text color='textSecondary'>Reviews</Text>
+          </View>
+          <View style={styles.statsElement}>
+            <Text
+              testID='repoRatingAverage'
+              fontSize='subheading'
+              fontWeight='bold'
+              color='textPrimary'
+            >
+              {formatStatNumber(item.ratingAverage)}
+            </Text>
+            <Text color='textSecondary'>Rating</Text>
+          </View>
+        </View>
+        {singleRepo
+          ? <Button
+              style={styles.urlButton}
+              onPress={() => openUrlInBrowser(item.url)}
+            >
+              Open in GitHub
+            </Button>
+          : null}
       </View>
-      <View style={style.stats}>
-        <View style={style.statsElement}>
-          <Text
-            testID='repoStargazersCount'
-            fontSize='subheading'
-            fontWeight='bold'
-            color='textPrimary'
-          >
-            {formatStatNumber(item.stargazersCount)}
-          </Text>
-          <Text color='textSecondary'>Stars</Text>
-        </View>
-        <View style={style.statsElement}>
-          <Text
-            testID='repoForksCount'
-            fontSize='subheading'
-            fontWeight='bold'
-            color='textPrimary'
-          >
-            {formatStatNumber(item.forksCount)}
-          </Text>
-          <Text color='textSecondary'>Forks</Text>
-        </View>
-        <View style={style.statsElement}>
-          <Text
-            testID='repoReviewCount'
-            fontSize='subheading'
-            fontWeight='bold'
-            color='textPrimary'
-          >
-            {formatStatNumber(item.reviewCount)}
-          </Text>
-          <Text color='textSecondary'>Reviews</Text>
-        </View>
-        <View style={style.statsElement}>
-          <Text
-            testID='repoRatingAverage'
-            fontSize='subheading'
-            fontWeight='bold'
-            color='textPrimary'
-          >
-            {formatStatNumber(item.ratingAverage)}
-          </Text>
-          <Text color='textSecondary'>Rating</Text>
-        </View>
-      </View>
-      {singleRepo
-        ? <Button
-            style={style.urlButton}
-            onPress={() => openUrlInBrowser(item.url)}
-          >
-            Open in GitHub
-          </Button>
-        : null}
-    </View>
+      {singleRepo ? <ItemSeparator /> : null}
+    </>
   );
 };
 
