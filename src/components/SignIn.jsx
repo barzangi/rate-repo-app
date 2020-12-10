@@ -1,10 +1,10 @@
 import React from 'react';
 import * as yup from 'yup';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-native';
 
-import theme from '../theme';
+import { formStyles as styles } from '../styles';
 
 import FormikTextInput from './FormikTextInput';
 import Button from './Button';
@@ -15,23 +15,6 @@ const initialValues = {
   username: '',
   password: ''
 };
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    backgroundColor: theme.backgroundColors.mainContainer,
-    padding: 15
-  },
-  textInput: {
-    borderColor: '#999999',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 8,
-    marginBottom: 10,
-    color: theme.colors.textSecondary,
-    fontSize: theme.fontSizes.subheading
-  }
-});
 
 const SignInForm = ({ onSubmit }) => {
   return (
