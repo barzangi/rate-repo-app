@@ -5,6 +5,8 @@ const theme = {
     textPrimary: '#24292e',
     textSecondary: '#586069',
     primary: '#0399d6',
+    secondary: '#8899aa',
+    warning: '#d73a4a'
   },
   backgroundColors: {
     appMain: '#e1e4e8',
