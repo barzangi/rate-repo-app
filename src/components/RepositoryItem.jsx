@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 5,
     color: '#ffffff',
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.secondary,
     flexShrink: 1
   },
   statsElement: {
