@@ -37,7 +37,7 @@ const AppBar = () => {
   const handleSignOut = async () => {
     await authStorage.clearAccessToken();
     apolloClient.resetStore();
-    history.push('/');
+    history.push('/sign-in');
   };
 
   return (
@@ -48,6 +48,9 @@ const AppBar = () => {
         </Link>
         {authorizedUser
           ? <>
+              <Link to='/create-review'>
+                <AppBarTab>Create a review</AppBarTab>
+              </Link>
               <TouchableHighlight onPress={handleSignOut}>
                 <Text
                   style={styles.signOutTab}
