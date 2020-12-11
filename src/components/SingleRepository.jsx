@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import { useParams } from 'react-router-native';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import theme from '../theme';
 import Text from './Text';
@@ -66,7 +66,7 @@ const ReviewItem = ({ review }) => {
         <Text
           color='textSecondary'
         >
-          {format(new Date(review.createdAt), 'dd.mm.yyyy')}
+          {format(parseISO(review.createdAt), 'dd.MM.yyyy')}
         </Text>
         <Text
           color='textPrimary'
