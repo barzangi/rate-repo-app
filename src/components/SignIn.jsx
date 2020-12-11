@@ -23,6 +23,7 @@ const SignInForm = ({ onSubmit }) => {
         name='username'
         placeholder='Username'
         style={styles.textInput}
+        autoCapitalize='none'
         testID='usernameField'
       />
       <FormikTextInput
@@ -30,6 +31,7 @@ const SignInForm = ({ onSubmit }) => {
         placeholder='Password'
         secureTextEntry={true}
         style={styles.textInput}
+        autoCapitalize='none'
         testID='passwordField'
       />
       <Button onPress={onSubmit} testID='submitButton'>Sign in</Button>
@@ -72,7 +74,7 @@ const SignIn = () => {
       console.log(data);
       history.push('/');
     } catch (e) {
-      console.log('error', e);
+      console.log(e);
     }
   };
 
