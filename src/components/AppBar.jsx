@@ -66,7 +66,10 @@ const AppBar = () => {
                 <AppBarTab>Sign in</AppBarTab>
               </Link>
             </>
-        }        
+        }       
+        <Link to='/sign-up'>
+          <AppBarTab>Sign up</AppBarTab>
+        </Link> 
       </ScrollView>
     </View>
   );
