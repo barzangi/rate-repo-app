@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useHistory } from 'react-router-native';
+import { Picker } from '@react-native-picker/picker';
 
 import RepositoryItem from './RepositoryItem';
 
@@ -44,9 +45,38 @@ export const RepositoryListContainer = ({ repositories }) => {
 };
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [orderBy, setOrderBy] = useState('CREATED_AT');
+  const [orderDirection, setOrderDirection] = useState('DESC');
+  const [sortType, setSortType] = useState(null);
+  const { repositories } = useRepositories(orderBy, orderDirection);
 
-  return <RepositoryListContainer repositories={repositories} />;
+  const handleChoice = (itemValue) => {
+    setSortType(itemValue);
+    if (itemValue === 'latest') {
+      setOrderBy('CREATED_AT');
+      setOrderDirection('DESC');
+    } else if (itemValue === 'highest') {
+      setOrderBy('RATING_AVERAGE');
+      setOrderDirection('DESC');
+    } else if (itemValue === 'lowest') {
+      setOrderBy('RATING_AVERAGE');
+      setOrderDirection('ASC');
+    }
+  };
+
+  return (
+    <>
+      <Picker
+        selectedValue={sortType}
+        onValueChange={(itemValue) => handleChoice(itemValue)}
+      >
+        <Picker.Item label='Latest repositories' value='latest' />
+        <Picker.Item label='Highest rated repositories' value='highest' />
+        <Picker.Item label='Lowest rated repositories' value='lowest' />
+      </Picker>
+      <RepositoryListContainer repositories={repositories} />
+    </>
+  );
 };
 
 export default RepositoryList;
