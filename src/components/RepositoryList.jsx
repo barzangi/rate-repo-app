@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({ repositories, onEndReach }) => {
   const history = useHistory();
 
   const viewSingleRepo = id => {
@@ -42,6 +42,8 @@ export const RepositoryListContainer = ({ repositories }) => {
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
       renderItem={({ item }) => (
         <TouchableOpacity activeOpacity={0.5} onPress={() => viewSingleRepo(item.id)}>
           <RepositoryItem
@@ -61,7 +63,7 @@ const RepositoryList = () => {
   const [sortType, setSortType] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [searchKeyword] = useDebounce(searchText, 500);
-  const { repositories } = useRepositories({ orderBy, orderDirection, searchKeyword });
+  const { repositories, fetchMore } = useRepositories({ first: 6, orderBy, orderDirection, searchKeyword });
 
   const handleChoice = (itemValue) => {
     setSortType(itemValue);
@@ -75,6 +77,10 @@ const RepositoryList = () => {
       setOrderBy('RATING_AVERAGE');
       setOrderDirection('ASC');
     }
+  };
+
+  const onEndReach = () => {
+    fetchMore();
   };
 
   return (
@@ -95,7 +101,7 @@ const RepositoryList = () => {
         <Picker.Item label='Highest rated repositories' value='highest' />
         <Picker.Item label='Lowest rated repositories' value='lowest' />
       </Picker>
-      <RepositoryListContainer repositories={repositories} />
+      <RepositoryListContainer repositories={repositories} onEndReach={onEndReach} />
     </>
   );
 };
