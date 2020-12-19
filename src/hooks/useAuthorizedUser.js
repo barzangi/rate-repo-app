@@ -3,10 +3,11 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { AUTHORIZED_USER } from '../graphql/queries';
 
-const useAuthorizedUser = () => {
+const useAuthorizedUser = variables => {
   const [authorizedUser, setAuthorizedUser] = useState();
 
   const { data, error, loading } = useQuery(AUTHORIZED_USER, {
+    variables,
     fetchPolicy: 'cache-and-network',
     onError: () => console.log(error)
   });
