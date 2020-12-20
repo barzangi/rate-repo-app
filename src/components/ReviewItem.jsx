@@ -47,7 +47,12 @@ const ReviewItem = ({ review, ...props }) => {
             >
               View repository
             </Button>
-            <Button style={styles.deleteButton}>Delete review</Button>
+            <Button
+              style={styles.deleteButton}
+              onPress={() => props.deleteReview(review.id)}
+            >
+              Delete review
+            </Button>
           </View>
         : null
       }
