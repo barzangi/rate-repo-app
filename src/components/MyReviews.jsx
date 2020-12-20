@@ -1,10 +1,11 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, Alert } from 'react-native';
 import { useHistory } from 'react-router-native';
 
 import ReviewItem from './ReviewItem';
 
 import useAuthorizedUser from '../hooks/useAuthorizedUser';
+import useDeleteReview from '../hooks/useDeleteReview';
 
 const styles = StyleSheet.create({
   separator: {
@@ -15,7 +16,8 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const MyReviews = () => {
-  const { authorizedUser } = useAuthorizedUser({ includeReviews: true });
+  const { authorizedUser, refetch } = useAuthorizedUser({ includeReviews: true });
+  const [deleteReview] = useDeleteReview();
   const history = useHistory();
 
   const reviews = authorizedUser
@@ -24,6 +26,35 @@ const MyReviews = () => {
 
   const viewRepository = id => {
     history.push(`/repository/${id}`);
+  };
+
+  const handleDeleteReview = async (id) => {
+    try {
+      const data = await deleteReview({ id });
+      console.log(data);
+      refetch();
+    } catch (e) {
+      console.log('error', e);
+    }
+  };
+
+  const confirmDeleteReview = id => {
+    Alert.alert(
+      'Delete review',
+      'Are you sure you want to delete this review?',
+      [
+        {
+          text: 'CANCEL',
+          onPress: () => console.log('Cancelled'),
+          style: 'cancel'
+        },
+        {
+          text: 'DELETE',
+          onPress: () => handleDeleteReview(id)
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -38,6 +69,7 @@ const MyReviews = () => {
                 review={item}
                 isUserReview={true}
                 viewRepository={viewRepository}
+                deleteReview={confirmDeleteReview}
               />}
             keyExtractor={({ id }) => id}
             ItemSeparatorComponent={ItemSeparator}
