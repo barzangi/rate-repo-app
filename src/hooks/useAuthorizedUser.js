@@ -6,7 +6,7 @@ import { AUTHORIZED_USER } from '../graphql/queries';
 const useAuthorizedUser = variables => {
   const [authorizedUser, setAuthorizedUser] = useState();
 
-  const { data, error, loading } = useQuery(AUTHORIZED_USER, {
+  const { data, error, loading, refetch } = useQuery(AUTHORIZED_USER, {
     variables,
     fetchPolicy: 'cache-and-network',
     onError: () => console.log(error)
@@ -20,7 +20,7 @@ const useAuthorizedUser = variables => {
     fetchAuthorizedUser();
   }, [fetchAuthorizedUser]);
 
-  return { authorizedUser, loading, refetch: fetchAuthorizedUser };
+  return { authorizedUser, loading, refetch };
 };
 
 export default useAuthorizedUser;
